@@ -132,4 +132,91 @@ describe('Deveria criar um novo carro', function () {
       sinon.restore();
     });
   });
+  describe('Testando o metodo Put ', function () {
+    it('Atualizando o id do carro ', async function () {
+      const carInput: Icar = {
+        model: 'Marea',
+        year: 1992,
+        color: 'Red',
+        status: true,
+        buyValue: 12.000,
+        doorsQty: 2,
+        seatsQty: 5,
+      };
+      const carOutput: Car = new Car(
+        {
+          id: '634852326b35b59438fbea2f',
+          model: 'Marea',
+          year: 1992,
+          color: 'Red',
+          status: true,
+          buyValue: 12.000,
+          doorsQty: 2,
+          seatsQty: 5,
+        },
+      );
+      sinon.stub(Model, 'findOne').resolves(true);
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(carOutput);
+
+      const service = new CarService();
+      const result = await service.updateById('634852326b35b59438fbea2f', carInput);
+
+      expect(result).to.be.deep.equal(carOutput);
+      sinon.restore();
+    });
+    it('Erro ao passar id invalido ', async function () {
+      // Arrange
+      const carInput: Icar = {
+        model: 'Marea',
+        year: 1992,
+        color: 'Red',
+        status: true,
+        buyValue: 12.000,
+        doorsQty: 2,
+        seatsQty: 5,
+      };
+      const carOutput : Car = new Car(
+        {
+          id: '634852326b35b59438fbea2f',
+          model: 'Marea',
+          year: 2002,
+          color: 'Black',
+          status: true,
+          buyValue: 15.99,
+          doorsQty: 4,
+          seatsQty: 5,
+        },
+      );
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(carOutput);
+               
+      try {
+        const service = new CarService();
+        await service.updateById('WRONG ID', carInput);
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Invalid mongo id');
+      } sinon.restore();
+    });
+
+    it('Erro ao passar id de um carro inexistente ', async function () {
+      // Arrange
+      const carInput: Icar = {
+        model: 'Marea',
+        year: 1992,
+        color: 'Red',
+        status: true,
+        buyValue: 12.000,
+        doorsQty: 2,
+        seatsQty: 5,
+      };
+      sinon.stub(Model, 'findOne').resolves(true);
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(false);
+                 
+      try {
+        const service = new CarService();
+        await service.updateById('1111222233330000ffffcccc', carInput);
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Car not found');
+      } sinon.restore();
+    });
+  });
 });
