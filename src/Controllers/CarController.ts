@@ -48,6 +48,19 @@ class CarsController {
       this.next(error);
     }
   }
+
+  public async reversalRequest() {
+    const carUpt: ICar = {
+      ...this.req.body,
+    };
+    const { id } = this.req.params;
+    try {
+      const car = await this.service.updateById(id, carUpt);
+      return this.res.status(200).json(car);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
   
 export default CarsController;

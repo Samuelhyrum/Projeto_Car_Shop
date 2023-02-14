@@ -4,6 +4,7 @@ import {
   model,
   models,
   isValidObjectId,
+  UpdateQuery,
 } from 'mongoose';
 import ICar from '../Interfaces/ICar';
 import HttpException from '../Middlewares/HttpException';
@@ -37,6 +38,17 @@ class CarODM {
   public async findById(_id: string): Promise<ICar | null> {
     if (!isValidObjectId(_id)) throw new HttpException(422, 'Invalid mongo id');
     return this.model.findOne({ _id });
+  }
+
+  public async update(id: string, objCar: Partial<ICar>):
+  Promise<ICar | null> {
+    if (!isValidObjectId(id)) throw new HttpException(422, 'Invalid mongo id');
+    
+    return this.model.findByIdAndUpdate(
+      { _id: id },
+      { ...objCar } as UpdateQuery<ICar>,
+      { new: true },
+    );    
   }
 }
   
