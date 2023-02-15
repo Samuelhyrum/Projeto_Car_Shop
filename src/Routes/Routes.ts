@@ -38,4 +38,9 @@ routes.get(
   '/motorcycles/:id',
   (req, res, next) => new MotoController(req, res, next).getMotoById(),
 );
+
+routes.put(
+  '/motorcycles/:id',
+  (req, res, next) => new MotoController(req, res, next).reversalRequest(),
+);
 export default routes;

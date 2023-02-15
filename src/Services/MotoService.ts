@@ -36,6 +36,17 @@ class MotoService {
     const motoArray = this.createMotoDomain(moto);
     return motoArray;
   }
+
+  public async updateById(id: string, motoUpt: IMotorcycle) {
+    const motoODM = new MotoODM();
+    const moto = await motoODM.findById(id);
+    if (!moto) {
+      throw new HttpException(404, 'Motorcycle not found');
+    }
+    const newIdOfMoto = await motoODM.update(id, motoUpt);
+
+    return this.createMotoDomain(newIdOfMoto);
+  }
 }
 
 export default MotoService;

@@ -48,6 +48,19 @@ class MotoController {
       this.next(error);
     }
   }
+
+  public async reversalRequest() {
+    const motoUpt: IMotorcycle = {
+      ...this.req.body,
+    };
+    const { id } = this.req.params;
+    try {
+      const moto = await this.service.updateById(id, motoUpt);
+      return this.res.status(200).json(moto);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
   
 export default MotoController;
