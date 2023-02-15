@@ -1,222 +1,223 @@
-// import { expect } from 'chai';
-// import sinon from 'sinon';
-// import { Model } from 'mongoose';
-// import Icar from '../../../src/Interfaces/ICar';
-// import CarService from '../../../src/Services/CarService';
-// import Car from '../../../src/Domains/Car';
+import { expect } from 'chai';
+import sinon from 'sinon';
+import { Model } from 'mongoose';
+import IMotorcycle from '../../../src/Interfaces/IMotorcycle';
+import MotoService from '../../../src/Services/MotoService';
+import Motorcycle from '../../../src/Domains/Motorcycle';
 
-// describe('Deveria criar um novo carro', function () {
-//   it('Deveria criar um carro com sucesso ', async function () {
-//     // Arrange
-//     const carInput: Icar = {
-//       model: 'Marea',
-//       year: 2002,
-//       color: 'Black',
-//       status: true,
-//       buyValue: 15.990,
-//       doorsQty: 4,
-//       seatsQty: 5,
-//     };
-//     const carOutput: Car = new Car(
-//       {
-//         id: '6348513f34c397abcad040b2',
-//         model: 'Marea',
-//         year: 2002,
-//         color: 'Black',
-//         status: true,
-//         buyValue: 15.990,
-//         doorsQty: 4,
-//         seatsQty: 5,
-//       },
-//     );
-//     sinon.stub(Model, 'create').resolves(carOutput);
+describe('Deveria criar uma nova moto', function () {
+  it('Deveria criar uma moto com sucesso ', async function () {
+    // Arrange
+    const motoInput: IMotorcycle = {
+      model: 'Honda Cb 600f Horne',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    };
+    const motoOutput: Motorcycle = new Motorcycle(
+      {
+        id: '6348513f34c397abcad040b2',
+        model: 'Honda Cb 600f Horne',
+        year: 2005,
+        color: 'Yellow',
+        status: true,
+        buyValue: 30.000,
+        category: 'Street',
+        engineCapacity: 600,
+      },
+    );
+    sinon.stub(Model, 'create').resolves(motoOutput);
 
-//     const service = new CarService();
-//     const result = await service.CreateCar(carInput);
+    const service = new MotoService();
+    const result = await service.CreateMoto(motoInput);
 
-//     expect(result).to.be.deep.equal(carOutput);
-//     sinon.restore();
-//   });
-//   describe('Testando o metodo Get ', function () {
-//     const inputArray = [
-//       {
-//         id: '634852326b35b59438fbea2f',
-//         model: 'Marea',
-//         year: 2002,
-//         color: 'Black',
-//         status: true,
-//         buyValue: 15.99,
-//         doorsQty: 4,
-//         seatsQty: 5,
-//       },
-//       {
-//         id: '634852326b35b59438fbea31',
-//         model: 'Tempra',
-//         year: 1995,
-//         color: 'Black',
-//         buyValue: 39,
-//         doorsQty: 2,
-//         seatsQty: 5,
-//       },
-//     ];
-//     it('Deveria trazer um array de carros', async function () {
-//     // Arrange
-//       const carOutput: Car[] = inputArray.map((car) => new Car(car));
-//       sinon.stub(Model, 'find').resolves(carOutput);
+    expect(result).to.be.deep.equal(motoOutput);
+    sinon.restore();
+  });
+  describe('Testando o metodo Get ', function () {
+    const inputArray = [
+      {
+        id: '634852326b35b59438fbea2f',
+        model: 'Honda Cb 600f Hort',
+        year: 2005,
+        color: 'Yellow',
+        status: true,
+        buyValue: 30.000,
+        category: 'Street',
+        engineCapacity: 600,
+      },
+      {
+        id: '634852326b35b59438fbea31',
+        model: 'Honda Cbr 1000r',
+        year: 2011,
+        color: 'Orange',
+        status: true,
+        buyValue: 59.900,
+        category: 'Street',
+        engineCapacity: 1000,
+      },
+    ];
+    it('Deveria trazer um array de motos', async function () {
+    // Arrange
+      const motoOutput: Motorcycle[] = inputArray.map((moto) => new Motorcycle(moto));
+      sinon.stub(Model, 'find').resolves(motoOutput);
     
-//       const service = new CarService();
-//       const result = await service.getAllCars();
+      const service = new MotoService();
+      const result = await service.getAllMotos();
     
-//       expect(result).to.be.deep.equal(carOutput);
-//       sinon.restore();
-//     });
+      expect(result).to.be.deep.equal(motoOutput);
+      sinon.restore();
+    });
 
-//     it('Deveria trazer um carro', async function () {
-//       // Arrange
-//       const carOutput : Car = new Car(
-//         {
-//           id: '634852326b35b59438fbea2f',
-//           model: 'Marea',
-//           year: 2002,
-//           color: 'Black',
-//           status: true,
-//           buyValue: 15.99,
-//           doorsQty: 4,
-//           seatsQty: 5,
-//         },
-//       );
-//       sinon.stub(Model, 'findOne').resolves(carOutput);
+    it('Deveria trazer uma moto', async function () {
+      // Arrange
+      const motoOutput : Motorcycle = new Motorcycle(
+        {
+          id: '634852326b35b59438fbea31',
+          model: 'Honda Cbr 1000rr',
+          year: 2011,
+          color: 'Orange',
+          status: true,
+          buyValue: 59.900,
+          category: 'Street',
+          engineCapacity: 1000,
+        },
+      );
+      sinon.stub(Model, 'findOne').resolves(motoOutput);
         
-//       const service = new CarService();
-//       const result = await service.getById('634852326b35b59438fbea2f');
+      const service = new MotoService();
+      const result = await service.getById('634852326b35b59438fbea31');
         
-//       expect(result).to.be.deep.equal(carOutput);
-//       sinon.restore();
-//     });
-//     it('Erro ao passar id invalido ', async function () {
-//       // Arrange
-//       const carOutput : Car = new Car(
-//         {
-//           id: '634852326b35b59438fbea2f',
-//           model: 'Marea',
-//           year: 2002,
-//           color: 'Black',
-//           status: true,
-//           buyValue: 15.99,
-//           doorsQty: 4,
-//           seatsQty: 5,
-//         },
-//       );
-//       sinon.stub(Model, 'findOne').resolves(carOutput);
+      expect(result).to.be.deep.equal(motoOutput);
+      sinon.restore();
+    });
+    it('Erro ao passar id invalido ', async function () {
+      // Arrange
+      const motoOutput : Motorcycle = new Motorcycle(
+        {
+          id: '634852326b35b59438fbea31',
+          model: 'Honda Cbr 1000rr',
+          year: 2011,
+          color: 'Orange',
+          status: true,
+          buyValue: 59.900,
+          category: 'Street',
+          engineCapacity: 1000,
+        },
+      );
+      sinon.stub(Model, 'findOne').resolves(motoOutput);
                
-//       try {
-//         const service = new CarService();
-//         await service.getById('WRONG ID');
-//       } catch (error) {
-//         expect((error as Error).message).to.be.equal('Invalid mongo id');
-//       } sinon.restore();
-//     });
-//     it('Erro ao passar id inexistente ', async function () {
-//       // Arrange
+      try {
+        const service = new MotoService();
+        await service.getById('WRONG ID');
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Invalid mongo id');
+      } sinon.restore();
+    });
+    it('Erro ao passar id inexistente ', async function () {
+      // Arrange
       
-//       sinon.stub(Model, 'findOne').resolves(false);
+      sinon.stub(Model, 'findOne').resolves(false);
                  
-//       try {
-//         const service = new CarService();
-//         await service.getById('1111222233330000ffffcccc');
-//       } catch (error) {
-//         expect((error as Error).message).to.be.equal('Car not found');
-//       } 
-//     });
-//     afterEach(function () {
-//       sinon.restore();
-//     });
-//   });
-//   describe('Testando o metodo Put ', function () {
-//     it('Atualizando o id do carro ', async function () {
-//       const carInput: Icar = {
-//         model: 'Marea',
-//         year: 1992,
-//         color: 'Red',
-//         status: true,
-//         buyValue: 12.000,
-//         doorsQty: 2,
-//         seatsQty: 5,
-//       };
-//       const carOutput: Car = new Car(
-//         {
-//           id: '634852326b35b59438fbea2f',
-//           model: 'Marea',
-//           year: 1992,
-//           color: 'Red',
-//           status: true,
-//           buyValue: 12.000,
-//           doorsQty: 2,
-//           seatsQty: 5,
-//         },
-//       );
-//       sinon.stub(Model, 'findOne').resolves(true);
-//       sinon.stub(Model, 'findByIdAndUpdate').resolves(carOutput);
+      try {
+        const service = new MotoService();
+        await service.getById('1111222233330000ffffcccc');
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Motorcycle not found');
+      } 
+    });
+    afterEach(function () {
+      sinon.restore();
+    });
+  });
+  describe('Testando o metodo Put ', function () {
+    it('Atualizando o id da moto ', async function () {
+      const motoInput: IMotorcycle = {
+        model: 'Honda Cb 600f Hornt',
+        year: 2014,
+        color: 'Red',
+        status: true,
+        buyValue: 45.000,
+        category: 'Street',
+        engineCapacity: 600,
+      };
+      const motoOutput: Motorcycle = new Motorcycle(
+        {
+          id: '634852326b35b59438fbea2f',
+          model: 'Honda Cb 600f Hornt',
+          year: 2014,
+          color: 'Red',
+          status: true,
+          buyValue: 45.000,
+          category: 'Street',
+          engineCapacity: 600,
+        },
+      );
+      sinon.stub(Model, 'findOne').resolves(true);
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(motoOutput);
 
-//       const service = new CarService();
-//       const result = await service.updateById('634852326b35b59438fbea2f', carInput);
+      const service = new MotoService();
+      const result = await service.updateById('634852326b35b59438fbea2f', motoInput);
 
-//       expect(result).to.be.deep.equal(carOutput);
-//       sinon.restore();
-//     });
-//     it('Erro ao passar id invalido ', async function () {
-//       // Arrange
-//       const carInput: Icar = {
-//         model: 'Marea',
-//         year: 1992,
-//         color: 'Red',
-//         status: true,
-//         buyValue: 12.000,
-//         doorsQty: 2,
-//         seatsQty: 5,
-//       };
-//       const carOutput : Car = new Car(
-//         {
-//           id: '634852326b35b59438fbea2f',
-//           model: 'Marea',
-//           year: 2002,
-//           color: 'Black',
-//           status: true,
-//           buyValue: 15.99,
-//           doorsQty: 4,
-//           seatsQty: 5,
-//         },
-//       );
-//       sinon.stub(Model, 'findByIdAndUpdate').resolves(carOutput);
+      expect(result).to.be.deep.equal(motoOutput);
+      sinon.restore();
+    });
+    it('Erro ao passar id invalido ', async function () {
+      // Arrange
+      const motoInput: IMotorcycle = {
+        model: 'Honda Cb 600f Honet',
+        year: 2014,
+        color: 'Red',
+        status: true,
+        buyValue: 45.000,
+        category: 'Street',
+        engineCapacity: 600,
+      };
+      const motoOutput : Motorcycle = new Motorcycle(
+        {
+          id: '634852326b35b59438fbea2f',
+          model: 'Honda Cb 600f Honet',
+          year: 2014,
+          color: 'Red',
+          status: true,
+          buyValue: 45.000,
+          category: 'Street',
+          engineCapacity: 600,
+        },
+      );
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(motoOutput);
                
-//       try {
-//         const service = new CarService();
-//         await service.updateById('WRONG ID', carInput);
-//       } catch (error) {
-//         expect((error as Error).message).to.be.equal('Invalid mongo id');
-//       } sinon.restore();
-//     });
+      try {
+        const service = new MotoService();
+        await service.updateById('WRONG ID', motoInput);
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Invalid mongo id');
+      } sinon.restore();
+    });
 
-//     it('Erro ao passar id de um carro inexistente ', async function () {
-//       // Arrange
-//       const carInput: Icar = {
-//         model: 'Marea',
-//         year: 1992,
-//         color: 'Red',
-//         status: true,
-//         buyValue: 12.000,
-//         doorsQty: 2,
-//         seatsQty: 5,
-//       };
-//       sinon.stub(Model, 'findOne').resolves(true);
-//       sinon.stub(Model, 'findByIdAndUpdate').resolves(false);
+    it('Erro ao passar id de um carro inexistente ', async function () {
+      // Arrange
+      const motoInput: IMotorcycle = {
+        model: 'Honda Cb 600f Hornet',
+        year: 2014,
+        color: 'Red',
+        status: true,
+        buyValue: 45.000,
+        category: 'Street',
+        engineCapacity: 600,
+      };
+      sinon.stub(Model, 'findOne').resolves(true);
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(false);
                  
-//       try {
-//         const service = new CarService();
-//         await service.updateById('1111222233330000ffffcccc', carInput);
-//       } catch (error) {
-//         expect((error as Error).message).to.be.equal('Car not found');
-//       } sinon.restore();
-//     });
-//   });
-// });
+      try {
+        const service = new MotoService();
+        await service.updateById('1111222233330000ffffcccc', motoInput);
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Motorcycle not found');
+      } sinon.restore();
+    });
+  });
+});
