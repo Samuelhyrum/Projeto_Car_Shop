@@ -1,4 +1,4 @@
-# :construction: README customizado em construção ! :construction:
+# 🚘 Car Shop ! 🚘
 <!-- Olá, Tryber!
 Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
 
@@ -11,3 +11,10 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 - quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
 - quais arquivos/pastas foram desenvolvidos pela Trybe.
 -->
+<details>
+  <summary><strong>👨‍💻 O que foi desenvolvido</strong></summary>
+
+  Para este projeto,eu apliquei os princípios de Programação Orientada a Objetos (`POO`) para a construção de uma API com `CRUD` para gerenciar uma concessionária de veículos. Isso será feito utilizando o banco de dados `MongoDB` através do framework do `Mongoose`.
+
+  <br>
+</details>
