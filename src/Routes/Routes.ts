@@ -4,6 +4,9 @@ import MotoController from '../Controllers/motoControllers';
 
 const routes = Router();
 
+const motoPathById = '/motorcycles/:id';
+const carPathById = '/cars/:id';
+
 routes.post(
   '/cars',
   (req, res, next) => new CarsController(req, res, next).create(),
@@ -15,12 +18,12 @@ routes.get(
 );
 
 routes.get(
-  '/cars/:id',
+  carPathById,
   (req, res, next) => new CarsController(req, res, next).getCarById(),
 );
 
 routes.put(
-  '/cars/:id',
+  carPathById,
   (req, res, next) => new CarsController(req, res, next).reversalRequest(),
 );
 
@@ -33,14 +36,24 @@ routes.get(
   '/motorcycles',
   (req, res, next) => new MotoController(req, res, next).getAllMotos(),
 );
-
 routes.get(
-  '/motorcycles/:id',
+  motoPathById,
   (req, res, next) => new MotoController(req, res, next).getMotoById(),
 );
 
 routes.put(
-  '/motorcycles/:id',
+  motoPathById,
   (req, res, next) => new MotoController(req, res, next).reversalRequest(),
 );
+
+routes.delete(
+  motoPathById,
+  (req, res, next) => new MotoController(req, res, next).deleteMotoById(),
+);
+
+routes.delete(
+  carPathById,
+  (req, res, next) => new CarsController(req, res, next).deleteCarById(),
+);
+
 export default routes;

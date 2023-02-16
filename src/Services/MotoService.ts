@@ -47,6 +47,15 @@ class MotoService {
 
     return this.createMotoDomain(newIdOfMoto);
   }
+
+  public async deleteById(id: string) {
+    const motoODM = new MotoODM();
+    const motoCar = await motoODM.deleteById(id);
+    if (!motoCar) {
+      throw new HttpException(404, 'Moto not found');
+    }
+    return this.createMotoDomain(motoCar);
+  }
 }
 
 export default MotoService;

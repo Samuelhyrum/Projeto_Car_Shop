@@ -61,6 +61,16 @@ class MotoController {
       this.next(error);
     }
   }
+
+  public async deleteMotoById() {
+    const { id } = this.req.params;
+    try {
+      await this.service.deleteById(id);
+      return this.res.status(204).json();
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
   
 export default MotoController;

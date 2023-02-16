@@ -49,6 +49,15 @@ class CarService {
 
     return this.createCarDomain(newIdOfCar);
   }
+
+  public async deleteById(id: string) {
+    const carODM = new CarODM();
+    const deleteCar = await carODM.deleteById(id);
+    if (!deleteCar) {
+      throw new HttpException(404, 'Carrinho not found');
+    }
+    return this.createCarDomain(deleteCar);
+  }
 }
 
 export default CarService;
